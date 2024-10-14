@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="stylelog.css">
+</head>
+<body>
+    <div class="login-form">
+        <h1>Register</h1>
+        <div class="container">
+            <div class="main">
+                <div class="content">
+                    <h2>Sign Up</h2>
+                    <!-- ฟอร์มส่งไปที่ register.php -->
+                    <form action="register.php" method="post">
+                        <input type="text" name="username" placeholder="User Name" required autofocus="">
+                        <input type="email" name="email" placeholder="Email" required autofocus="">
+                        <input type="password" name="password" placeholder="Password" required>
+                        <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                         <button class="btn" type="submit">
+                            Register
+                         </button>
+                    </form>
+                    <p class="account">Already Have An Account? <a href="login.php">Login</a></p>
+                </div>
+                <div class="form-img">
+                    <img src="bg.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>หน้าเสนอสมาชิกทีม</title>
+    <link rel="stylesheet" href="stylesteam.css">
+</head>
+<body>
+    <header class="header">
+        <h1>ทีมงานของเรา</h1>
+    </header>
+
+    <section class="team">
+        <div class="team-member" onclick="goToMemberPage('team/witsupakit.php')">
+            <img src="Wit.jpg" alt="สมาชิก 1">
+            <h2>ชื่อนาย วิทย์สุพกิจ บุญวานิช</h2>
+            <p>654274115</p>
+            <p>ตำแหน่ง: ทำcode</p>
+        </div>
+        <div class="team-member" onclick="goToMemberPage('team/tonkhaw.php')">
+            <img src="tonkhaw1.jpg" alt="สมาชิก 2">
+            <h2>ชื่อนาย พงศธร บัวสงค์</h2>
+            <p>654274112</p>
+            <p>ตำแหน่ง: นักออกแบบ</p>
+        </div>
+        <div class="team-member" onclick="goToMemberPage('team/pond.php')">
+            <img src="pon.jpg" alt="สมาชิก 3">
+            <h2>นาย ศุภโชค ตูวิเชียร</h2>
+            <p>654274119</p>
+            <p>ตำแหน่ง: ทำcode</p>
+        </div>
+        <div class="team-member" onclick="goToMemberPage('team/tha.php')">
+            <img src="tata.jpg" alt="สมาชิก 4">
+            <h2>นส.กริษฐา หาญราษฎร์</h2>
+            <p>654274101</p>
+            <p>ตำแหน่ง: ทำรายงาน</p>
+        </div>
+    </section>
+
+    <div class="back-button-container">
+        <button class="back-button" onclick="goToIndex()">กลับไปหน้าแรก</button>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

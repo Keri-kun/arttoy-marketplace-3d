@@ -1,0 +1,74 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #000; /* พื้นหลังสีดำ */
+    color: #fff; /* ตัวหนังสือสีขาว */
+    line-height: 1.6;
+}
+
+header {
+    background-color: #b71c1c; /* แดงเข้ม */
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+h1, h2 {
+    margin-bottom: 20px;
+}
+
+section {
+    padding: 20px;
+    margin: 20px;
+    border-bottom: 1px solid #b71c1c;
+}
+
+footer {
+    background-color: #b71c1c;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+a {
+    color: #e53935; /* สีแดงสด */
+}
+
+a:hover {
+    color: #ff6f61; /* สีแดงอ่อนตอน hover */
+}
+
+.profile-img {
+    display: block;
+    margin: 20px auto;
+    width: 150px; /* ขนาดของรูป */
+    height: 150px;
+    border-radius: 50%; /* ทำให้รูปภาพเป็นวงกลม */
+    border: 3px solid #b71c1c; /* กรอบรูปสีแดง */
+}
+
+
+.social-icons {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.social-icons a {
+    color: #fff; /* สีไอคอน */
+    font-size: 24px; /* ขนาดไอคอน */
+    margin: 0 10px;
+    display: inline-block;
+    transition: color 0.3s;
+}
+
+.social-icons a:hover {
+    color: #e53935; /* สีเมื่อเอาเมาส์ไปวาง */
+}
