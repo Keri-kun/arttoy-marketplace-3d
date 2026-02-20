@@ -18,12 +18,9 @@ $result = $db->read("SELECT p.*, c.CategoryName FROM product AS p LEFT JOIN cate
 <body class="hold-transition sidebar-mini layout-fixed">
   <div class="wrapper">
 
-
     <?php
     include 'include/navbar.php';
     ?>
-
-
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -33,7 +30,7 @@ $result = $db->read("SELECT p.*, c.CategoryName FROM product AS p LEFT JOIN cate
           <div class="row mb-2">
             <div class="col-sm-6">
               <a href="manage_product_add.php" class="btn btn-success">
-                <i class="fas fa-plus-circle mr-2"></i>สินค้า</a>
+                <i class="fas fa-plus-circle mr-2"></i>เพิ่มสินค้า</a>
 
             </div><!-- /.col -->
 
@@ -48,12 +45,13 @@ $result = $db->read("SELECT p.*, c.CategoryName FROM product AS p LEFT JOIN cate
           <table id="table" class="table table-light">
             <thead class="thead-light">
               <tr>
-                <th style="width: 10%;">No.</th>
+                <th style="width: 8%;">No.</th>
                 <th>ประเภทสินค้า</th>
                 <th>ชื่อสินค้า</th>
                 <th>รายละเอียด</th>
-                <th>ราคา</th>
-                <th>รูปสินค้า</th>
+                <th style="width: 10%;">ราคา</th>
+                <th style="width: 12%;">จำนวนสินค้า</th>
+                <th style="width: 12%;">รูปสินค้า</th>
                 <th style="width: 5%;"></th>
                 <th style="width: 5%;"></th>
               </tr>
@@ -61,13 +59,27 @@ $result = $db->read("SELECT p.*, c.CategoryName FROM product AS p LEFT JOIN cate
             <tbody>
               <?php
               foreach ($result as $key => $value) {
+                // ตรวจสอบและกำหนดสีของสต็อก
+                $quantity = isset($value->Quantity) ? $value->Quantity : 0;
+                $badgeClass = 'badge-success';
+                
+                if ($quantity == 0) {
+                  $badgeClass = 'badge-danger';
+                } elseif ($quantity < 10) {
+                  $badgeClass = 'badge-warning';
+                }
               ?>
                 <tr>
                   <td><?php echo $key + 1; ?></td>
                   <td><?php echo $value->CategoryName; ?></td>
                   <td><?php echo $value->ProductName; ?></td>
                   <td><?php echo $value->Description; ?></td>
-                  <td><?php echo $value->Price; ?></td>
+                  <td><?php echo number_format($value->Price, 2); ?> บาท</td>
+                  <td>
+                    <span class="badge <?php echo $badgeClass; ?>">
+                      <?php echo $quantity; ?> ชิ้น
+                    </span>
+                  </td>
                   <td><img src="uploaded_images/<?php echo $value->ImageURL; ?>" alt="" style="max-width: 150px;"></td>
                   <td>
                     <a href="manage_product_edit.php?id=<?php echo $value->ProductID; ?>" class="text-success">
@@ -84,7 +96,6 @@ $result = $db->read("SELECT p.*, c.CategoryName FROM product AS p LEFT JOIN cate
               }
               ?>
 
-
             </tbody>
 
           </table>
@@ -96,7 +107,6 @@ $result = $db->read("SELECT p.*, c.CategoryName FROM product AS p LEFT JOIN cate
     <?php
     include 'include/footer.php';
     ?>
-
 
   </div>
   <!-- ./wrapper -->

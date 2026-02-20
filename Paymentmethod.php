@@ -57,7 +57,7 @@
             <div class="mb-3">
                 <select class="form-select" id="paymentMethod" required>
                     <option value="" disabled selected>เลือกวิธีชำระเงิน</option>
-                    <option value="card">ตัดบัตร</option>
+                    <!--<option value="card">ตัดบัตร</option> -->
                     <option value="transfer">โอนเข้าพร้อมเพ</option>
                 </select>
             </div>
@@ -65,7 +65,7 @@
             <div class="mb-3 row">
                 <div class="col text-center">
                     <button class="btn btn-danger me-2" id="confirmButton" type="button">ยืนยัน</button>
-                    <button class="btn btn-secondary" type="reset">ยกเลิก</button>
+                    <button class="btn btn-secondary" type="reset" onclick="location.href='Paymentmethod.php'">ยกเลิก</button>
                 </div>
             </div>
         </div>

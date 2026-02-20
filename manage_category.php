@@ -4,6 +4,15 @@ include 'database.php';
 $db = new Database();
 
 $result = $db->read("SELECT * FROM category;");
+
+// Get product count for each category
+$categoryCount = [];
+foreach ($result as $category) {
+  $countResult = $db->read("SELECT COUNT(*) as count FROM product WHERE CategoryID = " . $category->CategoryID);
+  if (!empty($countResult)) {
+    $categoryCount[$category->CategoryID] = $countResult[0]->count;
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -19,11 +28,9 @@ $result = $db->read("SELECT * FROM category;");
 <body class="hold-transition sidebar-mini layout-fixed">
   <div class="wrapper">
 
-
     <?php
     include 'include/navbar.php';
     ?>
-
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -34,9 +41,7 @@ $result = $db->read("SELECT * FROM category;");
             <div class="col-sm-6">
               <a href="manage_category_add.php" class="btn btn-success">
                 <i class="fas fa-plus-circle mr-2"></i>ประเภทสินค้า</a>
-
             </div><!-- /.col -->
-
           </div><!-- /.row -->
         </div><!-- /.container-fluid -->
       </div>
@@ -51,6 +56,7 @@ $result = $db->read("SELECT * FROM category;");
               <tr>
                 <th style="width: 10%;">No.</th>
                 <th>ประเภทสินค้า</th>
+                <th style="width: 15%;">จำนวนสินค้า</th>
                 <th style="width: 5%;"></th>
                 <th style="width: 5%;"></th>
               </tr>
@@ -58,10 +64,14 @@ $result = $db->read("SELECT * FROM category;");
             <tbody>
               <?php
               foreach ($result as $key => $value) {
+                $count = isset($categoryCount[$value->CategoryID]) ? $categoryCount[$value->CategoryID] : 0;
               ?>
                 <tr>
                   <td><?php echo $key + 1; ?></td>
                   <td><?php echo $value->CategoryName; ?></td>
+                  <td>
+                    <span class="badge badge-info"><?php echo $count; ?></span>
+                  </td>
                   <td>
                     <a href="manage_category_edit.php?id=<?php echo $value->CategoryID; ?>" class="text-success">
                       <i class="fas fa-edit"></i>
@@ -76,10 +86,7 @@ $result = $db->read("SELECT * FROM category;");
               <?php
               }
               ?>
-
-
             </tbody>
-
           </table>
 
         </div><!-- /.container-fluid -->
@@ -89,7 +96,6 @@ $result = $db->read("SELECT * FROM category;");
     <?php
     include 'include/footer.php';
     ?>
-
 
   </div>
   <!-- ./wrapper -->

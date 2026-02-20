@@ -1,3 +1,7 @@
+<?php
+session_start(); // เริ่ม session ด้านบนสุดของไฟล์
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,9 +17,8 @@
             <div class="main">
                 <div class="content">
                     <h2>Log In</h2>
-                    <?php
-session_start(); // เริ่มต้น session
 
+<?php
 if (isset($_POST['submit'])) {
     $servername = "localhost";
     $username = "root";
@@ -35,7 +38,7 @@ if (isset($_POST['submit'])) {
 
     // Prepared statement เพื่อป้องกัน SQL Injection
     $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
-    $stmt->bind_param("ss", $user, $pass); // ผูกค่าพารามิเตอร์ $user และ $pass
+    $stmt->bind_param("ss", $user, $pass); // ควรเข้ารหัสรหัสผ่านด้วย password_hash() ในอนาคต
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -43,14 +46,15 @@ if (isset($_POST['submit'])) {
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
 
-        // เก็บข้อมูลใน session
+        // ✅ เก็บข้อมูลใน session
+        $_SESSION['user_id'] = $row['id']; // ใช้สำหรับระบบตะกร้าและคำสั่งซื้อ
         $_SESSION['username'] = $user;
         $_SESSION['role'] = $row['role'];
 
         // ตรวจสอบ role และเปลี่ยนหน้า
         if ($row['role'] == 'admin') {
             header("Location: dashboard.php");
-            exit(); // หยุดการทำงานเพิ่มเติมหลังจากเปลี่ยนหน้า
+            exit();
         } else {
             header("Location: index.php");
             exit();
@@ -59,7 +63,6 @@ if (isset($_POST['submit'])) {
         echo "<p style='color:red;'>Invalid username or password!</p>";
     }
 
-    // ปิดการเชื่อมต่อฐานข้อมูล
     $stmt->close();
     $conn->close();
 }
@@ -72,6 +75,7 @@ if (isset($_POST['submit'])) {
                     </form>
                     <p class="account">Don't Have An Account? <a href="Register.html">Register</a></p>
                 </div>
+
                 <div class="form-img">
                     <img src="bg.jpg" alt="">
                 </div>

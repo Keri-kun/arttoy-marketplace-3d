@@ -29,8 +29,7 @@
                 <i class="fab fa-instagram"></i>
                 <section id="contact">
         <div class="container">
-            <h2>ติดต่อฉัน</h2>
-            <p>คุณสามารถติดต่อฉันได้ที่: <a href="kirikuno3706@gmail.com">kirikuno3706@gmail.com</a></p>
+        <a href="kirikuno3706@gmail.com">kirikuno3706@gmail.com</a></p>
         </div>
     </section>
         </div>

@@ -23,7 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // ตรวจสอบรหัสผ่านที่ตรงกัน
     if ($pass === $confirm_pass) {
         // ไม่เข้ารหัสรหัสผ่าน (เก็บเป็น plaintext)
-        // $hashed_password = password_hash($pass, PASSWORD_DEFAULT); // ลบส่วนนี้ออก
 
         // เตรียมคำสั่ง SQL
         $sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
@@ -35,6 +34,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // ดำเนินการบันทึกข้อมูล
         if ($stmt->execute()) {
             echo "Registration successful!";
+            
+            // รอ 2 วินาทีแล้วกลับไปหน้า login.php
+            sleep(2);
+            header("Location: login.php");
+            exit(); // ให้แน่ใจว่าจะไม่ดำเนินการโค้ดหลังจากนี้
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }

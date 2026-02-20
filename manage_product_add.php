@@ -4,9 +4,7 @@ include 'database.php';
 $db = new Database();
 
 $category = $db->read("SELECT * FROM category;");
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,15 +27,11 @@ $category = $db->read("SELECT * FROM category;");
 <body class="hold-transition sidebar-mini layout-fixed">
   <div class="wrapper">
 
-
-    <?php
-    include 'include/navbar.php';
-    ?>
-
+    <?php include 'include/navbar.php'; ?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-      <!-- Content Header (Page header) -->
+      <!-- Content Header -->
       <div class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
@@ -45,11 +39,9 @@ $category = $db->read("SELECT * FROM category;");
               <p class="mb-0">
                 <i class="fas fa-plus-circle mr-2"></i>สินค้า
               </p>
-
-            </div><!-- /.col -->
-
-          </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+            </div>
+          </div>
+        </div>
       </div>
       <!-- /.content-header -->
 
@@ -59,42 +51,46 @@ $category = $db->read("SELECT * FROM category;");
           <div class="row">
             <div class="col-lg-4 col-md-6 col-12">
               <form method="post" action="api_product.php" enctype="multipart/form-data">
-
                 <input type="hidden" name="action" value="add">
 
                 <div class="form-group">
                   <label for="category">ประเภท</label>
                   <select id="category" class="form-control" name="category" required>
                     <option value="">เลือกประเภท</option>
-                    <?php
-                    foreach ($category as $value) {
-                    ?>
+                    <?php foreach ($category as $value) { ?>
                       <option value="<?php echo $value->CategoryID ?>"><?php echo $value->CategoryName ?></option>
-                    <?php
-                    }
-                    ?>
-
+                    <?php } ?>
                   </select>
                 </div>
+
                 <div class="form-group">
                   <label for="ProductName">สินค้า</label>
                   <input id="ProductName" class="form-control" type="text" name="ProductName" required>
                 </div>
+
                 <div class="form-group">
                   <label for="Description">รายละเอียดสินค้า</label>
                   <textarea id="Description" class="form-control" name="Description" rows="3"></textarea>
                 </div>
+
                 <div class="form-group">
                   <label for="Price">ราคา</label>
                   <input id="Price" class="form-control" type="number" name="Price" required>
                 </div>
+
                 <div class="form-group">
                   <label for="ImageURL">รูปสินค้า</label>
                   <input id="ImageURL" class="form-control-file" type="file" name="ImageURL" accept="image/*" required>
                 </div>
 
+                <div class="form-group">
+                  <label for="ModelURL">ไฟล์โมเดล 3D (.glb)</label>
+                  <input id="ModelURL" class="form-control-file" type="file" name="ModelURL" accept=".glb">
+                  <small id="modelFileName" class="form-text text-muted" style="display:none;">ไฟล์ที่เลือก: <span></span></small>
+                </div>
+
                 <div class="row">
-                  <div class=" col-sm-6 col-12">
+                  <div class="col-sm-6 col-12">
                     <img id="preview" src="" alt="Image Preview">
                   </div>
                 </div>
@@ -104,42 +100,42 @@ $category = $db->read("SELECT * FROM category;");
               </form>
             </div>
           </div>
-
-
-        </div><!-- /.container-fluid -->
+        </div>
       </section>
       <!-- /.content -->
     </div>
-    <?php
-    include 'include/footer.php';
-    ?>
 
+    <?php include 'include/footer.php'; ?>
 
   </div>
   <!-- ./wrapper -->
-  <?php
-  include 'include/script.php';
-  ?>
+
+  <?php include 'include/script.php'; ?>
+
   <script>
-    $(function() {
-      $('#ImageURL').on('change', function() {
-        // รับไฟล์จาก input
+    $(function () {
+      // พรีวิวรูป
+      $('#ImageURL').on('change', function () {
         var file = this.files[0];
-
-        // ตรวจสอบว่ามีไฟล์ไหม
         if (file) {
-          // สร้าง URL ของไฟล์
           var reader = new FileReader();
-
-          reader.onload = function(e) {
-            // ตั้งค่าที่อยู่ของภาพใน src ของ <img>
+          reader.onload = function (e) {
             $('#preview').attr('src', e.target.result).show();
           };
-
-          // อ่านไฟล์
           reader.readAsDataURL(file);
         } else {
           $('#preview').hide();
+        }
+      });
+
+      // แสดงชื่อไฟล์ .glb
+      $('#ModelURL').on('change', function () {
+        var file = this.files[0];
+        if (file) {
+          $('#modelFileName span').text(file.name);
+          $('#modelFileName').show();
+        } else {
+          $('#modelFileName').hide();
         }
       });
     });
