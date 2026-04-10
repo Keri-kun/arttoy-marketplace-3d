@@ -1,1 +1,0 @@
-console.log("Shopee-Themed Intro Page Loaded");
